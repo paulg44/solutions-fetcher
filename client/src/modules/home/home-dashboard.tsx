@@ -1,8 +1,10 @@
 import addArticle from "../../core/api/testUpload";
 import SharedButton from "../../shared/button/button";
 import fetchCategories from "../../functions/fetch-categories";
+import { useState } from "react";
 
 const HomeDashboard = () => {
+  const [categoryIdList, setCategoryIdList] = useState<string[]>([""]);
   const newArticle = {
     id: "1",
     title: "Sample Solution Article",
@@ -23,8 +25,12 @@ const HomeDashboard = () => {
 
   const handleFetchCategories = async () => {
     try {
-      const categories = await fetchCategories();
-      console.log("Fetched categories:", categories);
+      const fetchedCategories = await fetchCategories();
+      const categoryIds = fetchedCategories.map((category) =>
+        String(category.id)
+      );
+      setCategoryIdList(categoryIds);
+      console.log("Fetched categories:", fetchedCategories);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
     }
@@ -42,6 +48,7 @@ const HomeDashboard = () => {
         labelKey="Fetch all categories from Helpdesk"
         onClick={handleFetchCategories}
       />
+      <p>Fetched Category IDs: {categoryIdList.join(", ")}</p>
     </div>
   );
 };
