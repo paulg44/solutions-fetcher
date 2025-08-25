@@ -1,10 +1,10 @@
-import { firestore } from "../../config/firebase";
+import { db } from "../../config/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import type { ISolutionArticle } from "../dao/solution-article";
 
 const addArticle = async (article: ISolutionArticle) => {
   try {
-    const articlesCollection = collection(firestore, "solutions");
+    const articlesCollection = collection(db, "solutions");
     const docRef = await addDoc(articlesCollection, {
       ...article,
       lastUpdated: new Date(), // Add current timestamp

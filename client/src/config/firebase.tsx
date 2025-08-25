@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { setLogLevel } from "firebase/app";
+// import { getAuth } from "firebase/auth";
+// import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_KEY,
@@ -15,7 +16,9 @@ const firebaseConfig = {
 console.log("Firebase initialized with config:", firebaseConfig);
 
 const app = initializeApp(firebaseConfig);
-export const firestore = getFirestore(app);
-export const auth = getAuth(app);
-export const storage = getStorage(app);
-export default app;
+export const db = getFirestore(app);
+// export const auth = getAuth(app);
+// export const storage = getStorage(app);
+export default db;
+
+setLogLevel("debug");

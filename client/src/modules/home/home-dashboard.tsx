@@ -1,33 +1,24 @@
-// import addArticle from "../../core/api/testUpload";
+import addArticle from "../../core/api/testUpload";
 import SharedButton from "../../shared/button/button";
-import { firestore } from "../../config/firebase";
-import { collection, addDoc } from "firebase/firestore";
 
 const HomeDashboard = () => {
-  const handleAddSolution = async () => {
-    // await addArticle({
-    //   id: "article1",
-    //   title: "How to reset your password",
-    //   content: "Navigate to settings...",
-    //   category: "Account",
-    //   tags: ["password", "reset", "account"],
-    //   authorId: "user123",
-    // });
-
-    // console.log("Article added");
-    try {
-      const testCollection = collection(firestore, "test");
-      addDoc(testCollection, { hello: "world" });
-      console.log("✅ Firestore is working");
-    } catch (error) {
-      console.error("❌ Firestore error:", error);
-    }
+  const newArticle = {
+    id: "1",
+    title: "Sample Solution Article",
+    content: "This is a sample solution article content.",
+    category: "General",
+    tags: ["sample", "solution"],
+    authorId: "admin",
   };
 
-  console.log(
-    "Running in:",
-    typeof window === "undefined" ? "server" : "browser"
-  );
+  const handleNewArticle = async () => {
+    try {
+      const articleId = await addArticle(newArticle);
+      console.log("Added article with ID:", articleId);
+    } catch (error) {
+      console.error("Failed to add article:", error);
+    }
+  };
 
   return (
     <div className="home-dashboard">
@@ -35,7 +26,7 @@ const HomeDashboard = () => {
       {/* Additional components and content can be added here */}
       <SharedButton
         labelKey="Add Solution Article"
-        onClick={handleAddSolution}
+        onClick={handleNewArticle}
       />
     </div>
   );
