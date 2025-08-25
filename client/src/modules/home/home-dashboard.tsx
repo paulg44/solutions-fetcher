@@ -1,5 +1,6 @@
 import addArticle from "../../core/api/testUpload";
 import SharedButton from "../../shared/button/button";
+import fetchCategories from "../../functions/fetch-categories";
 
 const HomeDashboard = () => {
   const newArticle = {
@@ -20,6 +21,15 @@ const HomeDashboard = () => {
     }
   };
 
+  const handleFetchCategories = async () => {
+    try {
+      const categories = await fetchCategories();
+      console.log("Fetched categories:", categories);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
   return (
     <div className="home-dashboard">
       <h1>Welcome to the Home Dashboard</h1>
@@ -27,6 +37,10 @@ const HomeDashboard = () => {
       <SharedButton
         labelKey="Add Solution Article"
         onClick={handleNewArticle}
+      />
+      <SharedButton
+        labelKey="Fetch all categories from Helpdesk"
+        onClick={handleFetchCategories}
       />
     </div>
   );
