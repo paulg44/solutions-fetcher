@@ -1,18 +1,20 @@
 import db from "../../config/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import type { IUploadCategories } from "../dao/fetch-categories.interface";
 
-export const uploadCategories = async (categories: IUploadCategories) => {
+export const uploadCategories = async (categories: IUploadCategories[]) => {
   try {
-    const categoriesCollection = collection(db, "categories");
-    const docRef = await addDoc(categoriesCollection, {
-      ...categories,
-      lastUpdated: new Date(), // Add current timestamp
-    });
-    console.log("Document written with ID: ", docRef.id);
-    return docRef.id;
-  } catch (error) {
-    console.error("Error adding document: ", error);
-    throw error;
+    for (const category of categories) {
+      const docRef = doc(db, "categories", category.id);
+      await setDoc(
+        docRef,
+        { ...category, lastUpdated: new Date() },
+        { merge: true }
+      );
+      console.log("Updated/created category:", category.id);
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
 };

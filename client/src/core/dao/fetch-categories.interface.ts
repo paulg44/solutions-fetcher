@@ -17,6 +17,6 @@ export interface IFetchCategories {
 }
 
 export interface IUploadCategories {
-  id: string[];
-  name: string[];
+  id: string;
+  name: string;
 }

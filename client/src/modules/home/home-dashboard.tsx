@@ -1,4 +1,3 @@
-import addArticle from "../../core/api/testUpload";
 import SharedButton from "../../shared/button/button";
 import fetchCategories from "../../functions/fetch-categories";
 import { useState } from "react";
@@ -7,23 +6,6 @@ import { uploadCategories } from "../../core/api/upload-categories";
 const HomeDashboard = () => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
   const [categoryNameList, setCategoryNameList] = useState<string[]>([]);
-  const newArticle = {
-    id: "1",
-    title: "Sample Solution Article",
-    content: "This is a sample solution article content.",
-    category: "General",
-    tags: ["sample", "solution"],
-    authorId: "admin",
-  };
-
-  const handleNewArticle = async () => {
-    try {
-      const articleId = await addArticle(newArticle);
-      console.log("Added article with ID:", articleId);
-    } catch (error) {
-      console.error("Failed to add article:", error);
-    }
-  };
 
   const handleFetchCategories = async () => {
     try {
@@ -42,14 +24,18 @@ const HomeDashboard = () => {
     }
   };
 
+  const handleUploadCategories = () => {
+    const categoriesToUpload = categoryIdList.map((id, index) => ({
+      id,
+      name: categoryNameList[index] || "Unnamed Category",
+    }));
+    uploadCategories(categoriesToUpload);
+  };
+
   return (
     <div className="home-dashboard">
       <h1>Welcome to the Home Dashboard</h1>
       {/* Additional components and content can be added here */}
-      <SharedButton
-        labelKey="Add Solution Article"
-        onClick={handleNewArticle}
-      />
       <div className="flex flex-col gap-4">
         <SharedButton
           labelKey="Fetch all categories from Helpdesk"
@@ -57,9 +43,7 @@ const HomeDashboard = () => {
         />
         <SharedButton
           labelKey="Update Database"
-          onClick={() =>
-            uploadCategories({ id: categoryIdList, name: categoryNameList })
-          }
+          onClick={handleUploadCategories}
         />
         <p>Fetched Category IDs: {categoryIdList.join(", ")}</p>
       </div>
