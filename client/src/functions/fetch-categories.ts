@@ -3,7 +3,7 @@ import type { IFetchCategories } from "../core/dao/fetch-categories.interface";
 const freshdeskDomain = "https://hearlink.freshdesk.com";
 const apiKey = import.meta.env.VITE_FRESHDESK_API_KEY;
 
-export const fetchCategories = async (): Promise<IFetchCategories[]> => {
+const fetchCategories = async (): Promise<IFetchCategories[]> => {
   try {
     const url = `${freshdeskDomain}/api/v2/solutions/categories/en`;
 
@@ -14,6 +14,7 @@ export const fetchCategories = async (): Promise<IFetchCategories[]> => {
         Authorization: "Basic " + btoa(apiKey + ":X"),
       },
     });
+
     if (!response.ok) {
       throw new Error(`Error fetching categories: ${response.statusText}`);
     }

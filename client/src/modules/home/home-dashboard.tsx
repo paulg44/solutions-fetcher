@@ -2,6 +2,7 @@ import SharedButton from "../../shared/button/button";
 import fetchCategories from "../../functions/fetch-categories";
 import { useState } from "react";
 import { uploadCategories } from "../../core/api/upload-categories";
+import fetchFolders from "../../functions/fetch-folders";
 
 const HomeDashboard = () => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
@@ -21,6 +22,15 @@ const HomeDashboard = () => {
       console.log("Fetched categories:", fetchedCategories);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
+    }
+  };
+
+  const handleFetchFolders = async (categoryNumber: number) => {
+    try {
+      const fetchedFolders = await fetchFolders({ categoryNumber });
+      console.log("Fetched folders:", fetchedFolders);
+    } catch (error) {
+      console.error("Failed to fetch folders:", error);
     }
   };
 
@@ -46,6 +56,12 @@ const HomeDashboard = () => {
           onClick={handleUploadCategories}
         />
         <p>Fetched Category IDs: {categoryIdList.join(", ")}</p>
+      </div>
+      <div>
+        <SharedButton
+          labelKey="Fetch folders for Category ID 1"
+          onClick={() => handleFetchFolders(205000006676)}
+        />
       </div>
     </div>
   );
