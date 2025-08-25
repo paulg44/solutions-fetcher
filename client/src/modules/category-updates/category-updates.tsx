@@ -6,6 +6,7 @@ import { uploadCategories } from "../../core/api/upload-categories";
 const CategoryUpdates = () => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
   const [categoryNameList, setCategoryNameList] = useState<string[]>([]);
+
   const handleFetchCategories = async () => {
     try {
       const fetchedCategories = await fetchCategories();
@@ -33,6 +34,7 @@ const CategoryUpdates = () => {
 
   return (
     <div>
+      <p>Can I see this?</p>
       <div className="flex flex-col gap-4">
         <SharedButton
           labelKey="Fetch all categories from Helpdesk"
