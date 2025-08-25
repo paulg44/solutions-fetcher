@@ -1,4 +1,4 @@
-import type { IFetchCategories } from "../core/dao/fetch-categories.interface";
+import type { IFetchCategories } from "../../core/dao/fetch-categories.interface";
 
 const freshdeskDomain = "https://hearlink.freshdesk.com";
 const apiKey = import.meta.env.VITE_FRESHDESK_API_KEY;

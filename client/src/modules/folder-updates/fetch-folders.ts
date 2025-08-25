@@ -1,13 +1,13 @@
-import type { IFetchCategories } from "../core/dao/fetch-folders.interface";
+import type { IFetchFolders } from "../../core/dao/fetch-folders.interface";
 
 const freshdeskDomain = "https://hearlink.freshdesk.com";
 const apiKey = import.meta.env.VITE_FRESHDESK_API_KEY;
 
-const fetchFolders = async ({
+export const fetchFolders = async ({
   categoryNumber,
 }: {
   categoryNumber: number;
-}): Promise<IFetchCategories[]> => {
+}): Promise<IFetchFolders[]> => {
   try {
     const url = `${freshdeskDomain}/api/v2/solutions/categories/${categoryNumber}/folders`;
     const response = await fetch(url, {
@@ -21,12 +21,10 @@ const fetchFolders = async ({
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = (await response.json()) as IFetchCategories[];
+    const data = (await response.json()) as IFetchFolders[];
     return data;
   } catch (error) {
     console.error("Error fetching folders:", error);
     throw new Error("Internal Server Error");
   }
 };
-
-export default fetchFolders;
