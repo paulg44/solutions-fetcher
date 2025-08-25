@@ -8,6 +8,8 @@ const HomeDashboard = () => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
   const [categoryNameList, setCategoryNameList] = useState<string[]>([]);
 
+  const [categoryId, setCategoryId] = useState<number>();
+
   const handleFetchCategories = async () => {
     try {
       const fetchedCategories = await fetchCategories();
@@ -58,9 +60,24 @@ const HomeDashboard = () => {
         <p>Fetched Category IDs: {categoryIdList.join(", ")}</p>
       </div>
       <div>
+        <label>{`Search folder using category ${categoryId}`}</label>
+        <select
+          name="categoryId"
+          id="categoryId"
+          value={categoryId}
+          onChange={(e) => {
+            setCategoryId(Number(e.target.value));
+          }}
+        >
+          {categoryIdList.map((id) => (
+            <option key={id} value={id}>
+              {id}
+            </option>
+          ))}
+        </select>
         <SharedButton
-          labelKey="Fetch folders for Category ID 1"
-          onClick={() => handleFetchFolders(205000006676)}
+          labelKey={`Fetch folders for Category ID ${categoryId}`}
+          onClick={() => handleFetchFolders(categoryId ?? 0)}
         />
       </div>
     </div>
