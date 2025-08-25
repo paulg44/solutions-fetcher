@@ -4,6 +4,7 @@ import { fetchFolders } from "./fetch-folders";
 import { collection, getDocs } from "firebase/firestore";
 import db from "../../config/firebase";
 import { UploadFolders } from "../../core/api/upload-folders";
+import { Link } from "react-router-dom";
 
 const FolderUpdates = () => {
   const [categoryId, setCategoryId] = useState<number>();
@@ -54,6 +55,10 @@ const FolderUpdates = () => {
 
   return (
     <div>
+      <Link to="/">
+        <SharedButton labelKey="Back Home" />
+      </Link>
+
       <h1>Update Folders for a Category</h1>
       <select
         name="categoryId"

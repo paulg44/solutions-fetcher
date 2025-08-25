@@ -10,4 +10,5 @@ export interface ISharedButton {
   size?: "small" | "medium" | "large";
   fullWidth?: boolean;
   href?: string;
+  children?: React.ReactNode;
 }

@@ -2,6 +2,7 @@ import SharedButton from "../../shared/button/button";
 import fetchCategories from "./fetch-categories";
 import { useState } from "react";
 import { uploadCategories } from "../../core/api/upload-categories";
+import { Link } from "react-router-dom";
 
 const CategoryUpdates = () => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
@@ -34,7 +35,12 @@ const CategoryUpdates = () => {
 
   return (
     <div>
-      <p>Can I see this?</p>
+      <Link to="/">
+        {" "}
+        <SharedButton labelKey="Back Home" />
+      </Link>
+
+      <h1>Category Updates</h1>
       <div className="flex flex-col gap-4">
         <SharedButton
           labelKey="Fetch all categories from Helpdesk"
