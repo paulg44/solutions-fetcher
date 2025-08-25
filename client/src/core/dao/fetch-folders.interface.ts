@@ -3,3 +3,8 @@ export interface IFetchFolders {
   name: string;
   categoryNumber: number;
 }
+
+export interface IUploadFolders {
+  id: string;
+  name: string;
+}

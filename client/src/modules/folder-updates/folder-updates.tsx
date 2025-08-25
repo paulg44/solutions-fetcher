@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { fetchFolders } from "./fetch-folders";
 import { collection, getDocs } from "firebase/firestore";
 import db from "../../config/firebase";
+import { UploadFolders } from "../../core/api/upload-folders";
 
 const FolderUpdates = () => {
   const [categoryId, setCategoryId] = useState<number>();
@@ -42,6 +43,15 @@ const FolderUpdates = () => {
     fetchCategoriesFromDB();
   }, []);
 
+  const handleUploadFolders = () => {
+    const foldersToUpload = folderNames.map((name, index) => ({
+      id: `${categoryId}-${index}`,
+      name,
+      categoryId: String(categoryId),
+    }));
+    UploadFolders(foldersToUpload);
+  };
+
   return (
     <div>
       <h1>Update Folders for a Category</h1>
@@ -53,7 +63,6 @@ const FolderUpdates = () => {
           setCategoryId(Number(e.target.value));
         }}
       >
-        {/* Pass this in using firebase */}
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}
@@ -72,6 +81,10 @@ const FolderUpdates = () => {
           ))}
         </ul>
       </div>
+      <SharedButton
+        labelKey="Update Selected Folders"
+        onClick={handleUploadFolders}
+      />
     </div>
   );
 };
