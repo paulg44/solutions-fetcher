@@ -15,3 +15,8 @@ export interface IFetchCategories {
     thumb_url: string;
   };
 }
+
+export interface IUploadCategories {
+  id: string[];
+  name: string[];
+}
