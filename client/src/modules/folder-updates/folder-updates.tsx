@@ -12,12 +12,18 @@ const FolderUpdates = () => {
     []
   );
 
-  const [folderNames, setFolderNames] = useState<string[]>([]);
+  console.log("Selected categoryId:", categoryId);
+
+  const [folderNames, setFolderNames] = useState<
+    { id: number; name: string }[]
+  >([]);
 
   const handleFetchFolders = async (categoryNumber: number) => {
     try {
       const fetchedFolders = await fetchFolders({ categoryNumber });
-      setFolderNames(fetchedFolders.map((folder) => folder.name));
+      setFolderNames(
+        fetchedFolders.map((folder) => ({ id: folder.id, name: folder.name }))
+      );
       console.log("Fetched folders:", fetchedFolders);
     } catch (error) {
       console.error("Failed to fetch folders:", error);
@@ -45,9 +51,9 @@ const FolderUpdates = () => {
   }, []);
 
   const handleUploadFolders = () => {
-    const foldersToUpload = folderNames.map((name, index) => ({
-      id: `${categoryId}-${index}`,
-      name,
+    const foldersToUpload = folderNames.map((folder) => ({
+      id: String(folder.id),
+      name: folder.name,
       categoryId: String(categoryId),
     }));
     UploadFolders(foldersToUpload);
@@ -81,8 +87,8 @@ const FolderUpdates = () => {
       <div>
         <h2>Folders:</h2>
         <ul>
-          {folderNames.map((name, index) => (
-            <li key={index}>{name}</li>
+          {folderNames.map((folder) => (
+            <li key={folder.id}>{folder.name}</li>
           ))}
         </ul>
       </div>

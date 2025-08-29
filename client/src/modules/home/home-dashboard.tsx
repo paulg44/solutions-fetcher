@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Articles from "../articles/article-updates";
 
 const HomeDashboard = () => {
   return (
@@ -7,6 +8,10 @@ const HomeDashboard = () => {
       {/* Additional components and content can be added here */}
       <Link to="/category-updates">Go to Category Updates</Link>
       <Link to="/folder-updates">Go to Folder Updates</Link>
+
+      <div>
+        <Articles />
+      </div>
     </div>
   );
 };
