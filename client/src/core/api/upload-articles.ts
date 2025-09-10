@@ -9,13 +9,12 @@ export const UploadArticles = async (articles: IUploadArticles[]) => {
       await setDoc(
         docRef,
         {
-          //   id: article.id,
-          //   title: article.name,
-          //   folderId: article.folder_id,
-          //   hits: article.hits,
-          //   thumbs_up: article.thumbs_up,
-          //   thumbs_down: article.thumbs_down,
-          ...article,
+          id: article.id ?? null,
+          title: article.title ?? "",
+          folderId: article.folder_id ?? "",
+          hits: article.hits ?? 0,
+          thumbs_up: article.thumbs_up ?? 0,
+          thumbs_down: article.thumbs_down ?? 0,
           updated_at: new Date(),
         },
         { merge: true }

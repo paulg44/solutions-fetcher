@@ -1,6 +1,6 @@
 export interface IFetchArticles {
   id: number;
-  name: string;
+  title: string;
   description: string;
   created_at: string;
   updated_at: string;
@@ -15,7 +15,7 @@ export interface IFetchArticles {
 
 export interface IUploadArticles {
   id: string;
-  name: string;
+  title: string;
   folder_id: number;
   thumbs_up: number;
   thumbs_down: number;
