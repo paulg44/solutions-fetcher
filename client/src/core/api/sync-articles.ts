@@ -21,8 +21,8 @@ export const SyncArticles = async () => {
           articles.map((article) => ({
             ...article,
             id: String(article.id),
-            thumbs_up: article.thumbs_up_count ?? 0,
-            thumbs_down: article.thumbs_down_count ?? 0,
+            thumbs_up: article.thumbs_up ?? 0,
+            thumbs_down: article.thumbs_down ?? 0,
           }))
         );
         console.log(

@@ -8,8 +8,8 @@ export interface IFetchArticles {
   folder_name: string;
   category_id: number;
   category_name: string;
-  thumbs_up_count: number;
-  thumbs_down_count: number;
+  thumbs_up: number;
+  thumbs_down: number;
   hits: number;
 }
 
