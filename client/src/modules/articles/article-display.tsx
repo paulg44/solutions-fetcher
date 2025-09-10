@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import db from "../../config/firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface IArticle {
   title: string;
@@ -12,6 +12,7 @@ interface IArticle {
 
 const ArticleDisplay = () => {
   const [articles, setArticles] = useState<IArticle[]>([]);
+  const [sortOptions, setSortOptions] = useState<string>("");
 
   const fetchArticles = async () => {
     try {
@@ -37,12 +38,56 @@ const ArticleDisplay = () => {
     }
   };
 
+  const sortedArticles = useMemo(() => {
+    if (!sortOptions) return articles;
+
+    const sorted = [...articles].sort((a, b) => {
+      if (sortOptions === "hits") {
+        return b.hits - a.hits;
+      } else if (sortOptions === "thumbsUp") {
+        return b.thumbsUp - a.thumbsUp;
+      } else if (sortOptions === "thumbsDown") {
+        return b.thumbsDown - a.thumbsDown;
+      }
+      return 0;
+    });
+    return sorted;
+  }, [articles, sortOptions]);
+
   console.log(articles);
 
   useEffect(() => {
     fetchArticles();
   }, []);
-  return <h2>Display articles</h2>;
+  return (
+    <div>
+      <h2>Display articles</h2>
+      <select
+        name="sortOption"
+        id="sortOption"
+        value={sortOptions}
+        onChange={(e) => {
+          setSortOptions(e.target.value);
+        }}
+      >
+        S<option value="">--Please choose an option--</option>
+        <option value="hits">Hits</option>
+        <option value="thumbsUp">Thumbs Up</option>
+        <option value="thumbsDown">Thumbs Down</option>
+      </select>
+
+      <div className="articleList">
+        {sortedArticles.sort().map((article) => (
+          <div key={article.id} className="border p-4 my-4">
+            <h3 className="text-3xl">{article.title}</h3>
+            <p>Hits: {article.hits}</p>
+            <p>Thumbs Up: {article.thumbsUp}</p>
+            <p>Thumbs Down: {article.thumbsDown}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default ArticleDisplay;

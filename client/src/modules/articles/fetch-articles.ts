@@ -11,7 +11,7 @@ export const fetchAllArticles = async ({
   try {
     let allArticles: IFetchArticles[] = [];
     let page = 1;
-    const perPage = 100;
+    const perPage = 50;
 
     while (true) {
       const url = `${freshdeskDomain}/api/v2/solutions/folders/${folderNumber}/articles?page=${page}&per_page=${perPage}`;
