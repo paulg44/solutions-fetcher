@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Articles from "../articles/article-updates";
 import SharedButton from "../../shared/button/button";
+import ArticleDisplay from "../articles/article-display";
 
 const HomeDashboard = () => {
   return (
@@ -14,6 +15,10 @@ const HomeDashboard = () => {
 
       <div>
         <Articles />
+      </div>
+
+      <div>
+        <ArticleDisplay />
       </div>
     </div>
   );
